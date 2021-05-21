@@ -42,6 +42,30 @@ def grille():
     canvas.create_line(0, 640, 640, 640, fill = "black", width= 4)
 grille()
 
+""" creation des murs exterieurs """ 
+
+l1 = [80, 120, 160, 200, 240, 280, 320]
+l2 = [360, 400, 440,480, 520, 560, 600]
+
+def mursexterieur(): 
+     x = l1[random.randint(0, 6)]
+     x1 = l2[random.randint(0, 6)]
+     x3 = 0
+     x4 = 640
+     y2 = l1[random.randint(0, 6)]
+     y3 = l2[random.randint(0, 6)]
+     y = 0
+     y1 = 640
+     canvas.create_line(x, y, x, y + 40, fill = "black", width= 5)
+     canvas.create_line(x1, y, x1, y + 40, fill = "black", width= 5)
+     canvas.create_line(x, y1, x, y1 - 40, fill = "black", width= 5)
+     canvas.create_line(x1, y1, x1, y1 - 40, fill = "black", width= 5)
+     canvas.create_line(x3, y2, x3 + 40, y2, fill = "black", width= 5)
+     canvas.create_line(x3, y3, x3 + 40, y3, fill = "black", width= 5)
+     canvas.create_line(x4, y2, x4 - 40, y2, fill = "black", width= 5)
+     canvas.create_line(x4, y3, x4 - 40, y3, fill = "black", width= 5)
+mursexterieur()
+
 """ creation des murs """
 def mur1():
     x = position[random.randint(0, 14)]
