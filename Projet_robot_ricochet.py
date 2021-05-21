@@ -121,6 +121,7 @@ def robotvert():
     cercle4 = canvas.create_oval(x3, y3, x3 + 40, y3 + 40, fill = "green")
     robot4_startX, robot4_startY =  x3, y3
     return cercle4
+     
 """ creation des cibles """
 
 robot1, robot2, robot3, robot4 = robotrouge(), robotjaune(),robotbleu(), robotvert()
@@ -140,7 +141,6 @@ def ciblerouge():
         objet.append(canvas.create_rectangle(xa, ya, xa + 40, ya + 40, fill = "red"))
         return objet
 
-       
 def ciblejaune():
     if len(objet) != 0:
         canvas.delete(objet[-1])
@@ -152,6 +152,7 @@ def ciblejaune():
         xb, yb = position[random.randint(0, 15)], position[random.randint(0, 15)]
         objet.append(canvas.create_rectangle(xb, yb, xb + 40, yb + 40, fill = "yellow"))
         return objet
+
 def ciblebleu():
     if len(objet) != 0:
         canvas.delete(objet[-1])
@@ -163,6 +164,7 @@ def ciblebleu():
         xc, yc = position[random.randint(0, 15)], position[random.randint(0, 15)]
         objet.append(canvas.create_rectangle(xc, yc, xc + 40, yc + 40, fill = "blue"))
         return objet
+
 def ciblevert():
     if len(objet) != 0:
         canvas.delete(objet[-1])
