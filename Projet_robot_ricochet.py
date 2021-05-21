@@ -18,7 +18,8 @@ fen.title("Robot Ricochet")
 canwidth, canheight = 640, 640
 canvas = tk.Canvas(fen, width = canwidth, height = canheight, bg = "white")
 canvas.grid(column = 5, row = 5, rowspan = 5)
-position = [0, 40, 80, 120, 160, 200, 240, 280, 320, 360, 400, 440, 480, 520, 560, 600]
+position = [40, 80, 120, 160, 200, 240, 280, 320, 360, 400, 440, 480, 520, 560, 600]
+position1 = [0, 40, 80, 120, 160, 200, 240, 400, 440, 480, 520, 560, 600]
 objet = []
 
 """initialisation des variable """
@@ -43,26 +44,26 @@ grille()
 
 """ creation des murs """
 def mur1():
-    x = position[random.randint(0, 15)]
-    y = position[random.randint(0, 15)]
+    x = position[random.randint(0, 14)]
+    y = position[random.randint(0, 14)]
     canvas.create_line(x, y, x, y + 40, fill = "black", width= 5)
     canvas.create_line(x, y, x + 40, y, fill = "black", width= 5)
 
 def mur2():
-    x = position[random.randint(0, 15)]
-    y = position[random.randint(0, 15)]
+    x = position[random.randint(0, 14)]
+    y = position[random.randint(0, 14)]
     canvas.create_line(x, y, x, y - 40, fill = "black", width= 5)
     canvas.create_line(x, y, x + 40, y, fill = "black", width= 5)
 
 def mur3():
-    x = position[random.randint(0, 15)]
-    y = position[random.randint(0, 15)]
+    x = position[random.randint(0, 14)]
+    y = position[random.randint(0, 14)]
     canvas.create_line(x, y, x, y - 40, fill = "black", width= 5)
     canvas.create_line(x, y, x - 40, y, fill = "black", width= 5)
 
 def mur4():
-    x = position[random.randint(0, 15)]
-    y = position[random.randint(0, 15)]
+    x = position[random.randint(0, 14)]
+    y = position[random.randint(0, 14)]
     canvas.create_line(x, y, x, y + 40, fill = "black", width= 5)
     canvas.create_line(x, y, x - 40, y, fill = "black", width= 5)
 
@@ -70,29 +71,29 @@ def mur4():
 
 def robotrouge():
     global x0, y0, robot1_startX, robot1_startY 
-    x0 = position[random.randint(0, 15)]
-    y0 = position[random.randint(0, 15)]
+    x0 = position1[random.randint(0, 12)]
+    y0 = position1[random.randint(0, 12)]
     cercle1 = canvas.create_oval(x0, y0, x0 + 40, y0 + 40, fill = "red")
     robot1_startX, robot1_startY =  x0, y0
     return cercle1
 def robotjaune():
     global x1, y1, robot2_startX, robot2_startY
-    x1 = position[random.randint(0, 15)]
-    y1 = position[random.randint(0, 15)]
+    x1 = position1[random.randint(0, 12)]
+    y1 = position1[random.randint(0, 12)]
     cercle2 = canvas.create_oval(x1, y1, x1 + 40, y1 + 40, fill = "yellow")
     robot2_startX, robot2_startY =  x1, y1
     return cercle2
 def robotbleu():
     global x2, y2, robot3_startX, robot3_startY
-    x2 = position[random.randint(0, 15)]
-    y2 = position[random.randint(0, 15)]
+    x2 = position1[random.randint(0, 12)]
+    y2 = position1[random.randint(0, 12)]
     cercle3 = canvas.create_oval(x2, y2, x2 + 40, y2 + 40, fill = "blue")
     robot3_startX, robot3_startY =  x2, y2
     return cercle3
 def robotvert():
     global x3, y3, robot4_startX, robot4_startY
-    x3 = position[random.randint(0, 15)]
-    y3 = position[random.randint(0, 15)]
+    x3 = position1[random.randint(0, 12)]
+    y3 = position1[random.randint(0, 12)]
     cercle4 = canvas.create_oval(x3, y3, x3 + 40, y3 + 40, fill = "green")
     robot4_startX, robot4_startY =  x3, y3
     return cercle4
