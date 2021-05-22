@@ -27,7 +27,7 @@ robot1_startX, robot1_startY = 0, 0
 robot2_startX, robot2_startY = 0, 0
 robot3_startX, robot3_startY = 0, 0
 robot4_startX, robot4_startY = 0, 0
-cpt = 0
+cpt = 0 
 
 """ creation de la gille de jeu """
 def grille():
