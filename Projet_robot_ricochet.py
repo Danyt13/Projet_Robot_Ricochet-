@@ -14,7 +14,7 @@ import random
 
 fen = tk.Tk()
 fen.title("Robot Ricochet")
-canwidth, canheight = 640, 640
+canwidth, canheight = 800, 640
 canvas = tk.Canvas(fen, width = canwidth, height = canheight, bg = "white")
 canvas.grid(column = 5, row = 5, rowspan = 5)
 position = [0, 40, 80, 120, 160, 200, 240, 280, 320, 360, 400, 440, 480, 520, 560, 600]
@@ -45,83 +45,51 @@ grille()
 
 """ création des murs """
 
-mursverticale = ((0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0),(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0), (0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0), (0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1), (0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),(0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0), (0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0), (0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0), (0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0))
-murshorizontale = ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0), (0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0), (0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0), (0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0), (0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-
-
-for i in range(len(mursverticale)):
-    for j in range(len(mursverticale[i])):
-        if mursverticale[i][j] == 1 :
-            canvas.create_line((j*40,i*40),(j*40,(i+1)*40),fill = "black", width = 5)
-
-for i in range(len(murshorizontale)):
-    for j in range(len(murshorizontale[i])):
-        if murshorizontale[i][j] == 1 :
-            canvas.create_line((j*40,i*40),((j+1)*40,i*40),fill = "black", width = 5)
+def genere_murs():
+    mursverticale = ((0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0),(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0), (0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0), (0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1), (0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),(0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0), (0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0), (0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0))
+    murshorizontale = ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0), (0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0), (0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0), (1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0), (0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+    for i in range(len(mursverticale)):
+        for j in range(len(mursverticale[i])):
+            if mursverticale[i][j] == 1 :
+                canvas.create_line((j*40,i*40),(j*40,(i+1)*40),fill = "black", width = 5)
+    for i in range(len(murshorizontale)):
+        for j in range(len(murshorizontale[i])):
+            if murshorizontale[i][j] == 1 :
+                canvas.create_line((j*40,i*40),((j+1)*40,i*40),fill = "black", width = 5)
+genere_murs()
 
 """ création des robots """
 
 # création de robot qui n'apparaitrons pas dans le carré du milieu
 def robotrouge():
     global x0, y0, robot1_startX, robot1_startY 
-    x0 = position[random.randint(0, 15)]
-    y0 = position[random.randint(0, 15)]
-    if x0 == 280 or x0 == 320:
-        y0 = position1[random.randint(0, 12)]
-    else:
-        y0 = position[random.randint(0, 15)]
-    if y0 == 280 or y0 == 320:
-        x0 = position1[random.randint(0, 12)]
-    else:
-        x0 = position[random.randint(0, 15)]
+    x0 = 0
+    y0 = 200
     cercle1 = canvas.create_oval(x0, y0, x0 + 40, y0 + 40, fill = "red")
     robot1_startX, robot1_startY =  x0, y0
     return cercle1
 
 def robotjaune():
     global x1, y1, robot2_startX, robot2_startY
-    x1 = position[random.randint(0, 15)]
-    y1 = position[random.randint(0, 15)]
-    if x1 == 280 or x1 == 320:
-        y1 = position1[random.randint(0, 12)]
-    else:
-        y1 = position[random.randint(0, 15)]
-    if y1 == 280 or y1 == 320:
-        x1 = position1[random.randint(0, 12)]
-    else:
-        x1 = position[random.randint(0, 15)]
+    x1 = 160
+    y1 = 480
     cercle2 = canvas.create_oval(x1, y1, x1 + 40, y1 + 40, fill = "yellow")
     robot2_startX, robot2_startY =  x1, y1
     return cercle2
 
 def robotbleu():
     global x2, y2, robot3_startX, robot3_startY
-    x2 = position[random.randint(0, 15)]
-    y2 = position[random.randint(0, 15)]
-    if x2 == 280 or x2 == 320:
-        y2 = position1[random.randint(0, 12)]
-    else:
-        y2 = position[random.randint(0, 15)]
-    if y2 == 280 or y2 == 320:
-        x2 = position1[random.randint(0, 12)]
-    else:
-        x2 = position[random.randint(0, 15)]
+    x2 = 120
+    y2 = 120
     cercle3 = canvas.create_oval(x2, y2, x2 + 40, y2 + 40, fill = "blue")
     robot3_startX, robot3_startY =  x2, y2
     return cercle3
 
+
 def robotvert():
     global x3, y3, robot4_startX, robot4_startY
-    x3 = position[random.randint(0, 15)]
-    y3 = position[random.randint(0, 15)]
-    if x3 == 280 or x3 == 320:
-        y3 = position1[random.randint(0, 12)]
-    else:
-        y3 = position[random.randint(0, 15)]
-    if y3 == 280 or y3 == 320:
-        x3 = position1[random.randint(0, 12)]
-    else:
-        x3 = position[random.randint(0, 15)]
+    x3 = 440
+    y3 = 440
     cercle4 = canvas.create_oval(x3, y3, x3 + 40, y3 + 40, fill = "green")
     robot4_startX, robot4_startY =  x3, y3
     return cercle4
@@ -136,11 +104,11 @@ def ciblerouge():
     if len(objet) != 0:
         canvas.delete(objet[-1])
         del objet[-1]        
-        xa, ya = position[random.randint(0, 15)], position[random.randint(0, 15)]
+        xa, ya = 200, 120
         objet.append(canvas.create_rectangle(xa, ya, xa + 40, ya + 40, fill = "red"))
         return objet
     elif len(objet) == 0:
-        xa, ya = position[random.randint(0, 15)], position[random.randint(0, 15)]
+        xa, ya = 200, 120
         objet.append(canvas.create_rectangle(xa, ya, xa + 40, ya + 40, fill = "red"))
         return objet
 
@@ -148,11 +116,11 @@ def ciblejaune():
     if len(objet) != 0:
         canvas.delete(objet[-1])
         del objet[-1]        
-        xb, yb = position[random.randint(0, 15)], position[random.randint(0, 15)]
+        xb, yb = 40, 360
         objet.append(canvas.create_rectangle(xb, yb, xb + 40, yb + 40, fill = "yellow"))
         return objet
     elif len(objet) == 0:
-        xb, yb = position[random.randint(0, 15)], position[random.randint(0, 15)]
+        xb, yb = 40, 360
         objet.append(canvas.create_rectangle(xb, yb, xb + 40, yb + 40, fill = "yellow"))
         return objet
 
@@ -160,11 +128,11 @@ def ciblebleu():
     if len(objet) != 0:
         canvas.delete(objet[-1])
         del objet[-1]        
-        xc, yc = position[random.randint(0, 15)], position[random.randint(0, 15)]
+        xc, yc = 240, 520
         objet.append(canvas.create_rectangle(xc, yc, xc + 40, yc + 40, fill = "blue"))
         return objet
     elif len(objet) == 0:
-        xc, yc = position[random.randint(0, 15)], position[random.randint(0, 15)]
+        xc, yc = 240, 520
         objet.append(canvas.create_rectangle(xc, yc, xc + 40, yc + 40, fill = "blue"))
         return objet
 
@@ -172,17 +140,18 @@ def ciblevert():
     if len(objet) != 0:
         canvas.delete(objet[-1])
         del objet[-1]        
-        xd, yd = position[random.randint(0, 15)], position[random.randint(0, 15)]
+        xd, yd = 440, 400
         objet.append(canvas.create_rectangle(xd, yd, xd + 40, yd + 40, fill = "green"))
         return objet
     elif len(objet) == 0:
-        xd, yd = position[random.randint(0, 15)], position[random.randint(0, 15)]
+        xd, yd = 440, 400
         objet.append(canvas.create_rectangle(xd, yd, xd + 40, yd + 40, fill = "green"))
         return objet
 
 
 """ déplacement des robot, je ne vois pas ou est l'erreur"""
 
+affiche_score = canvas.create_text(724.25, 360, fill = "white", text = "0")
 
 def deplacementRobot(event):
     global x0, y0, x1, y1, x2, y2, x3, y3, cpt
@@ -287,6 +256,7 @@ def deplacementRobot(event):
         canvas.move(robot4, -40, 0)
         cpt += 1
         print ("Nombres de coups:",cpt)
+    canvas.itemconfigure(affiche_score, text = cpt )
 
 canvas.bind_all("<Button-1>", deplacementRobot)
 canvas.bind_all("<Up>", deplacementRobot)
@@ -296,16 +266,8 @@ canvas.bind_all("<Left>", deplacementRobot)
 
 """ la partie revien au début quand on clique sur le bouton du milieu """
 def recommencer():
-    print("reset")
-    global robot1_startX, robot1_startY, robot2_startX, robot2_startY, robot3_startX, robot3_startY, robot4_startX, robot4_startY
-    global x0, y0, x1, y1, x2, y2, x3, y3, cpt 
-
-    x0, y0 = robot1_startX, robot1_startY
-    x1, y1 = robot2_startX, robot2_startY
-    x2, y2 = robot3_startX, robot3_startY
-    x3, y3 = robot4_startX, robot4_startY
-    cpt = 0
-    return  x0, y0, x1, y1, x2, y2, x3, y3, cpt 
+    fen.destroy()
+    # principal()
 
 
 """ bouton pour l'apparition des cibles """
@@ -324,16 +286,13 @@ boutonbleu.grid(column = 1, row = 5, rowspan = 5)
 
 """ widgets pour score et nombres de coups """
 
-nombredecoup = tk.Button(fen,text = "Nombre de coup: " + str(cpt))
-nombredecoup.grid(column = 1, row = 0, rowspan = 1)
+def score_et_record():
+    canvas.create_rectangle(645, 260, 800, 300, fill = "black", outline = "yellow", width = 5)
+    canvas.create_text(685, 280, fill = "white", text = "record :")
 
-score = tk.Button(fen,text = "score" )
-score.grid(column = 0, row = 0, rowspan = 1)
+    canvas.create_rectangle(645, 340, 800, 380, fill = "black" , outline = "red", width = 5)
+    canvas.create_text(685, 360, fill = "white", text = "score :")
 
-
-def miseajourscore(event):
-    global var_score 
-    pass
 
 """ configuration du curseur et de la fenètre"""
 
