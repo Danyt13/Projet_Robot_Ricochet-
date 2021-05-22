@@ -43,67 +43,21 @@ def grille():
     canvas.create_line(0, 640, 640, 640, fill = "black", width= 4)
 grille()
 
-""" création des murs extérieurs """ 
+""" création des murs """
 
-liste1 = [80, 120, 160, 200, 240, 280, 320]
-liste2 = [360, 400, 440,480, 520, 560, 600]
+mursverticale = ((0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0),(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0), (0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0), (0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1), (0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),(0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0), (0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0), (0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0), (0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0))
+murshorizontale = ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0), (0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0), (0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0), (0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0), (0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
 
-def mursexterieur(): 
-     x = liste1[random.randint(0, 6)]
-     x1 = liste2[random.randint(0, 6)]
-     x3 = 0
-     x4 = 640
-     y2 = liste1[random.randint(0, 6)]
-     y3 = liste2[random.randint(0, 6)]
-     y = 0
-     y1 = 640
-     canvas.create_line(x, y, x, y + 40, fill = "black", width= 5)
-     canvas.create_line(x1, y, x1, y + 40, fill = "black", width= 5)
-     canvas.create_line(x, y1, x, y1 - 40, fill = "black", width= 5)
-     canvas.create_line(x1, y1, x1, y1 - 40, fill = "black", width= 5)
-     canvas.create_line(x3, y2, x3 + 40, y2, fill = "black", width= 5)
-     canvas.create_line(x3, y3, x3 + 40, y3, fill = "black", width= 5)
-     canvas.create_line(x4, y2, x4 - 40, y2, fill = "black", width= 5)
-     canvas.create_line(x4, y3, x4 - 40, y3, fill = "black", width= 5)
-mursexterieur()
 
-""" création des murs intérieurs """
-def mur1():
-    x = position[random.randint(1, 15)]
-    y = position[random.randint(1, 15)]
-    canvas.create_line(x, y, x, y + 40, fill = "black", width= 5)
-    canvas.create_line(x, y, x + 40, y, fill = "black", width= 5)
+for i in range(len(mursverticale)):
+    for j in range(len(mursverticale[i])):
+        if mursverticale[i][j] == 1 :
+            canvas.create_line((j*40,i*40),(j*40,(i+1)*40),fill = "black", width = 5)
 
-def mur2():
-    x = position[random.randint(1, 15)]
-    y = position[random.randint(1, 15)]
-    canvas.create_line(x, y, x, y - 40, fill = "black", width= 5)
-    canvas.create_line(x, y, x + 40, y, fill = "black", width= 5)
-
-def mur3():
-    x = position[random.randint(1, 15)]
-    y = position[random.randint(1, 15)]
-    canvas.create_line(x, y, x, y - 40, fill = "black", width= 5)
-    canvas.create_line(x, y, x - 40, y, fill = "black", width= 5)
-
-def mur4():
-    x = position[random.randint(1, 15)]
-    y = position[random.randint(1, 15)]
-    canvas.create_line(x, y, x, y + 40, fill = "black", width= 5)
-    canvas.create_line(x, y, x - 40, y, fill = "black", width= 5)
-
-"""apparition aléatoire des murs intérieurs """
-
-for i in range(25):
-    x = random.randint(0, 3)
-    if x == 0:
-        mur1()
-    elif x == 1:
-        mur2()
-    elif x == 2:
-        mur3()
-    elif x == 3:
-        mur4()
+for i in range(len(murshorizontale)):
+    for j in range(len(murshorizontale[i])):
+        if murshorizontale[i][j] == 1 :
+            canvas.create_line((j*40,i*40),((j+1)*40,i*40),fill = "black", width = 5)
 
 """ création des robots """
 
