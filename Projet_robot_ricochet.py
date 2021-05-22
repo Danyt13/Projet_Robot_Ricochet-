@@ -151,8 +151,6 @@ def ciblevert():
 
 """ déplacement des robot, je ne vois pas ou est l'erreur"""
 
-affiche_score = canvas.create_text(724.25, 360, fill = "white", text = "0")
-
 def deplacementRobot(event):
     global x0, y0, x1, y1, x2, y2, x3, y3, cpt
     touche = event.keysym
@@ -286,12 +284,14 @@ boutonbleu.grid(column = 1, row = 5, rowspan = 5)
 
 """ widgets pour score et nombres de coups """
 
-def score_et_record():
-    canvas.create_rectangle(645, 260, 800, 300, fill = "black", outline = "yellow", width = 5)
-    canvas.create_text(685, 280, fill = "white", text = "record :")
 
-    canvas.create_rectangle(645, 340, 800, 380, fill = "black" , outline = "red", width = 5)
-    canvas.create_text(685, 360, fill = "white", text = "score :")
+canvas.create_rectangle(645, 260, 800, 300, fill = "black", outline = "yellow", width = 5)
+canvas.create_text(685, 280, fill = "white", text = "record :")
+
+canvas.create_rectangle(645, 340, 800, 380, fill = "black" , outline = "red", width = 5)
+canvas.create_text(685, 360, fill = "white", text = "score :")
+
+affiche_score = canvas.create_text(724.25, 360, fill = "white", text = "0")
 
 
 """ configuration du curseur et de la fenètre"""
