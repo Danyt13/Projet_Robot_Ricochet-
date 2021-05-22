@@ -13,7 +13,7 @@ Mode d'emplois pour jouer :
 
 But :
 
-Amener le pion de la même couleur que la cible sur la cible avec le moins de coup possible. 
+Amener le pion de la même couleur que la cible sur la cible avec le moins de coups possible. 
 
 Problème rencontré : 
 
