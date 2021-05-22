@@ -107,6 +107,15 @@ for i in range(25):
 
 """ création des robots """
 
+#ancienne version
+"""def robotbleu():
+    global x2, y2, robot3_startX, robot3_startY
+    x2 = position[random.randint(0, 15)]
+    y2 = position[random.randint(0, 15)]
+    cercle3 = canvas.create_oval(x2, y2, x2 + 40, y2 + 40, fill = "blue")
+    robot3_startX, robot3_startY =  x2, y2
+    return cercle3 """
+
 # création de robot qui n'apparaitrons pas dans le carré du milieu
 def robotrouge():
     global x0, y0, robot1_startX, robot1_startY 
@@ -229,90 +238,116 @@ def ciblevert():
 
 """ déplacement des robot, je ne vois pas ou est l'erreur"""
 
+
 def deplacementRobot(event):
     global x0, y0, x1, y1, x2, y2, x3, y3, cpt
     touche = event.keysym
-    global X, Y
+    global X, Y, mouvement
     X = event.x
-    Y = event.y 
+    Y = event.y
+    #assignement de la variable mouvement en fonction des coordonnées des robots
     if x0 <= X <= x0+40 and y0 <= Y <= y0+40:
+        mouvement = 1
         print("robot rouge")
-        if touche == "<Up>": 
-            print("up")
-            y0 =- 40
-            canvas.move(robot1, 0,-40)
-            cpt += 1
-        elif touche == "Down":
-            canvas.move(robot1, 0, 40)
-            y0 =+ 40
-            cpt += 1
-        elif touche == "Right":
-            x0 =+ 40
-            canvas.move(robot1, 40, 0)
-            cpt += 1
-        elif touche == "Left":
-            x0 =-40
-            canvas.move(robot1, -40, 0)
-            cpt += 1
-    if x1 <= X <= x1+40 and y1 <= Y <= y1+40:
+    elif x1 <= X <= x1+40 and y1 <= Y <= y1+40:
+        mouvement = 2
         print("robot jaune")
-        if touche == "<Up>": 
-            y1 =- 40
-            canvas.move(robot2, 0,-40)
-            cpt += 1 
-        elif touche == "Down":
-            canvas.move(robot2, 0, 40)
-            y1 =+ 40
-            cpt += 1
-        elif touche == "Right":
-            x1 =+ 40
-            canvas.move(robot2, 40, 0)
-        elif touche == "Left":
-            x1 =-40
-            canvas.move(robot2, -40, 0)
-            cpt += 1
-    if x2 <= X <= x2+40 and y2 <= Y <= y2+40:
+    elif x2 <= X <= x2+40 and y2 <= Y <= y2+40:
+        mouvement = 3
         print("robot bleu")
-        if touche == "<Up>": 
-            y2 =- 40
-            canvas.move(robot3, 0,-40)
-            cpt += 1
-        elif touche == "Down":
-            canvas.move(robot3, 0, 40)
-            y2 =+ 40
-            cpt += 1
-        elif touche == "Right":
-            x2 =+ 40
-            canvas.move(robot3, 40, 0)
-            cpt += 1
-        elif touche == "Left":
-            x2 =-40
-            canvas.move(robot3, -40, 0)
-            cpt += 1
-    if x3 <= X <= x3+40 and y3 <= Y <= y3+40:
+    elif x3 <= X <= x3+40 and y3 <= Y <= y3+40:
+        mouvement = 4
         print("robot vert") 
-        if touche == "<Up>": 
-            y3 =- 40
-            canvas.move(robot4, 0,-40)
-            cpt += 1
-        elif touche == "Down":
-            canvas.move(robot4, 0, 40)
-            y3 =+ 40
-            cpt += 1
-        elif touche == "Right":
-            x3 =+ 40
-            canvas.move(robot4, 40, 0)
-            cpt += 1
-        elif touche == "Left":
-            x3 =-40
-            canvas.move(robot4, -40, 0)
-            cpt += 1
+    #deplacement du robot rouge 
+    if mouvement == 1 and touche == "Up": 
+        y0 =- 40
+        canvas.move(robot1, 0, -40)
+        cpt += 1
+        print ("Nombres de coups:",cpt)
+    elif mouvement == 1 and touche == "Down":
+        canvas.move(robot1, 0, 40)
+        y0 =+ 40
+        cpt+= 1
+        print ("Nombres de coups:",cpt)
+    elif mouvement == 1 and touche == "Right":
+        x0 =+ 40
+        canvas.move(robot1, 40, 0)
+        cpt += 1
+        print ("Nombres de coups:",cpt)
+    elif mouvement == 1 and touche == "Left":
+        x0 =-40
+        canvas.move(robot1, -40, 0)
+        cpt += 1
+        print ("Nombres de coups:",cpt)
+    #deplacement du robot jaune
+    if touche == "Up" and mouvement == 2: 
+        y1 =- 40
+        canvas.move(robot2, 0,-40)
+        cpt += 1 
+        print ("Nombres de coups:",cpt)
+    elif touche == "Down" and mouvement == 2:
+        canvas.move(robot2, 0, 40)
+        y1 =+ 40
+        cpt += 1
+        print ("Nombres de coups:",cpt)
+    elif touche == "Right" and mouvement == 2:
+        x1 =+ 40
+        canvas.move(robot2, 40, 0)
+        cpt += 1
+        print ("Nombres de coups:",cpt)
+    elif touche == "Left" and mouvement == 2:
+        x1 =-40
+        canvas.move(robot2, -40, 0)
+        cpt += 1
+        print ("Nombres de coups:",cpt)
+    #deplacement du robot bleu
+    if touche == "Up" and mouvement == 3: 
+        y2 =- 40
+        canvas.move(robot3, 0,-40)
+        cpt += 1
+        print ("Nombres de coups:",cpt)
+    elif touche == "Down" and mouvement == 3:
+        canvas.move(robot3, 0, 40)
+        y2 =+ 40
+        cpt += 1
+        print ("Nombres de coups:",cpt)
+    elif touche == "Right" and mouvement == 3:
+        x2 =+ 40
+        canvas.move(robot3, 40, 0)
+        cpt += 1
+        print ("Nombres de coups:",cpt)
+    elif touche == "Left" and mouvement == 3:
+        x2 =-40
+        canvas.move(robot3, -40, 0)
+        cpt += 1
+        print ("Nombres de coups:",cpt)
+    #deplacement du robot vert 
+    if touche == "Up" and mouvement == 4: 
+        y3 =- 40
+        canvas.move(robot4, 0,-40)
+        cpt += 1
+        print ("Nombres de coups:",cpt)
+    elif touche == "Down" and mouvement == 4:
+        canvas.move(robot4, 0, 40)
+        y3 =+ 40
+        cpt += 1
+        print ("Nombres de coups:",cpt)
+    elif touche == "Right" and mouvement == 4:
+        x3 =+ 40
+        canvas.move(robot4, 40, 0)
+        cpt += 1
+        print ("Nombres de coups:",cpt)
+    elif touche == "Left" and mouvement == 4:
+        x3 =-40
+        canvas.move(robot4, -40, 0)
+        cpt += 1
+        print ("Nombres de coups:",cpt)
 
-canvas.bind("<Button-1>", deplacementRobot)
-canvas.bind("<Up>", deplacementRobot)
-canvas.bind("<Down>", deplacementRobot)
-canvas.bind("<Right>", deplacementRobot)
-canvas.bind("<Left>", deplacementRobot)
+canvas.bind_all("<Button-1>", deplacementRobot)
+canvas.bind_all("<Up>", deplacementRobot)
+canvas.bind_all("<Down>", deplacementRobot)
+canvas.bind_all("<Right>", deplacementRobot)
+canvas.bind_all("<Left>", deplacementRobot)
 
 """ la partie revien au début quand on clique sur le bouton du milieu """
 def recommencer():
