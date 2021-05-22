@@ -107,15 +107,6 @@ for i in range(25):
 
 """ création des robots """
 
-#ancienne version
-"""def robotbleu():
-    global x2, y2, robot3_startX, robot3_startY
-    x2 = position[random.randint(0, 15)]
-    y2 = position[random.randint(0, 15)]
-    cercle3 = canvas.create_oval(x2, y2, x2 + 40, y2 + 40, fill = "blue")
-    robot3_startX, robot3_startY =  x2, y2
-    return cercle3 """
-
 # création de robot qui n'apparaitrons pas dans le carré du milieu
 def robotrouge():
     global x0, y0, robot1_startX, robot1_startY 
