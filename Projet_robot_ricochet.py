@@ -27,7 +27,7 @@ robot1_startX, robot1_startY = 0, 0
 robot2_startX, robot2_startY = 0, 0
 robot3_startX, robot3_startY = 0, 0
 robot4_startX, robot4_startY = 0, 0
-
+cpt = 0
 
 """ creation de la gille de jeu """
 def grille():
@@ -190,10 +190,10 @@ for i in range(25):
         mur4()
 
 
-""" deplacement des robot pour l'intant une case par une case mais mais je ne vois pas ou est l'erreur"""
+""" deplacement des robot pour l'intant une case par une case mais je ne vois pas ou est l'erreur"""
 
 def deplacementRobot(event):
-    global x0, y0, x1, y1, x2, y2, x3, y3
+    global x0, y0, x1, y1, x2, y2, x3, y3, cpt
     touche = event.keysym
     global X, Y
     X = event.x
@@ -204,57 +204,72 @@ def deplacementRobot(event):
             print("up")
             y0 =- 40
             canvas.move(robot1, 0,-40)
+            cpt += 1
         elif touche == "Down":
             canvas.move(robot1, 0, 40)
             y0 =+ 40
+            cpt += 1
         elif touche == "Right":
             x0 =+ 40
             canvas.move(robot1, 40, 0)
+            cpt += 1
         elif touche == "Left":
             x0 =-40
             canvas.move(robot1, -40, 0)
+            cpt += 1
     if x1 <= X <= x1+40 and y1 <= Y <= y1+40:
         print("robot jaune")
         if touche == "<Up>": 
             y1 =- 40
             canvas.move(robot2, 0,-40)
+            cpt += 1 
         elif touche == "Down":
             canvas.move(robot2, 0, 40)
             y1 =+ 40
+            cpt += 1
         elif touche == "Right":
             x1 =+ 40
             canvas.move(robot2, 40, 0)
         elif touche == "Left":
             x1 =-40
             canvas.move(robot2, -40, 0)
+            cpt += 1
     if x2 <= X <= x2+40 and y2 <= Y <= y2+40:
         print("robot bleu")
         if touche == "<Up>": 
             y2 =- 40
             canvas.move(robot3, 0,-40)
+            cpt += 1
         elif touche == "Down":
             canvas.move(robot3, 0, 40)
             y2 =+ 40
+            cpt += 1
         elif touche == "Right":
             x2 =+ 40
             canvas.move(robot3, 40, 0)
+            cpt += 1
         elif touche == "Left":
             x2 =-40
             canvas.move(robot3, -40, 0)
+            cpt += 1
     if x3 <= X <= x3+40 and y3 <= Y <= y3+40:
         print("robot vert") 
         if touche == "<Up>": 
             y3 =- 40
             canvas.move(robot4, 0,-40)
+            cpt += 1
         elif touche == "Down":
             canvas.move(robot4, 0, 40)
             y3 =+ 40
+            cpt += 1
         elif touche == "Right":
             x3 =+ 40
             canvas.move(robot4, 40, 0)
+            cpt += 1
         elif touche == "Left":
             x3 =-40
             canvas.move(robot4, -40, 0)
+            cpt += 1
 
 canvas.bind("<Button-1>", deplacementRobot)
 canvas.bind("<Up>", deplacementRobot)
@@ -266,13 +281,14 @@ canvas.bind("<Left>", deplacementRobot)
 def recommencer():
     print("reset")
     global robot1_startX, robot1_startY, robot2_startX, robot2_startY, robot3_startX, robot3_startY, robot4_startX, robot4_startY
-    global x0, y0, x1, y1, x2, y2, x3, y3
+    global x0, y0, x1, y1, x2, y2, x3, y3, cpt 
 
     x0, y0 = robot1_startX, robot1_startY
     x1, y1 = robot2_startX, robot2_startY
     x2, y2 = robot3_startX, robot3_startY
     x3, y3 = robot4_startX, robot4_startY
-    return  x0, y0, x1, y1, x2, y2, x3, y3
+    cpt = 0
+    return  x0, y0, x1, y1, x2, y2, x3, y3, cpt 
 
 
 """ bouton pour l'apparition des cibles """
@@ -291,7 +307,7 @@ boutonbleu.grid(column = 1, row = 5, rowspan = 5)
 
 """ widget pour score et nombre de coup """
 
-nombredecoup = tk.Button(fen,text = "Nombre de coup: 0" )
+nombredecoup = tk.Button(fen,text = "Nombre de coup: " + str(cpt))
 nombredecoup.grid(column = 1, row = 0, rowspan = 1)
 
 score = tk.Button(fen,text = "score" )
