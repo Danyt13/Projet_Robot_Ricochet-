@@ -9,6 +9,7 @@
 
 import tkinter as tk 
 import random
+from tkinter.constants import CENTER, TRUE
 
 """ création de la fenètre """
 
@@ -16,10 +17,11 @@ fen = tk.Tk()
 fen.title("Robot Ricochet")
 canwidth, canheight = 800, 640
 canvas = tk.Canvas(fen, width = canwidth, height = canheight, bg = "white")
-canvas.grid(column = 5, row = 5, rowspan = 5)
+canvas.grid(column = 5, row = 5, rowspan = 5,)
 position = [0, 40, 80, 120, 160, 200, 240, 280, 320, 360, 400, 440, 480, 520, 560, 600]
 position1 = [0, 40, 80, 120, 160, 200, 240, 400, 440, 480, 520, 560, 600]
 objet = []
+
 
 """initialisation des variables """
 
@@ -28,6 +30,10 @@ robot2_startX, robot2_startY = 0, 0
 robot3_startX, robot3_startY = 0, 0
 robot4_startX, robot4_startY = 0, 0
 cpt = 0
+record = 0
+points = 0
+mouvement = 0
+ciblerougecliquer,ciblejaunecliquer, ciblebleucliquer, ciblevertcliquer = 0, 0, 0, 0
 
 """ création de la gille de jeu """
 def grille():
@@ -168,51 +174,68 @@ listeDeRobot = [robot1, robot2, robot3, robot4]
 """ création des cibles """
 
 def ciblerouge():
+    global ciblerougecliquer,ciblejaunecliquer, ciblebleucliquer, ciblevertcliquer, cercle1
+    ciblerougecliquer = 1
+    ciblejaunecliquer = 0
+    ciblebleucliquer = 0
+    ciblevertcliquer = 0
+    cercle1 = canvas.create_rectangle(200, 120, 240, 160, fill = "red")
     if len(objet) != 0:
         canvas.delete(objet[-1])
         del objet[-1]        
-        xa, ya = 200, 120
-        objet.append(canvas.create_rectangle(xa, ya, xa + 40, ya + 40, fill = "red"))
+        objet.append(cercle1)
         return objet
     elif len(objet) == 0:
-        xa, ya = 200, 120
-        objet.append(canvas.create_rectangle(xa, ya, xa + 40, ya + 40, fill = "red"))
+        objet.append(cercle1)
         return objet
-
+    
 def ciblejaune():
+    global ciblerougecliquer,ciblejaunecliquer, ciblebleucliquer, ciblevertcliquer, cercle2
+    ciblerougecliquer = 0
+    ciblejaunecliquer = 1
+    ciblebleucliquer = 0
+    ciblevertcliquer = 0
+    cercle2 = canvas.create_rectangle(40, 360, 80, 400, fill = "yellow")
     if len(objet) != 0:
         canvas.delete(objet[-1])
         del objet[-1]        
-        xb, yb = 40, 360
-        objet.append(canvas.create_rectangle(xb, yb, xb + 40, yb + 40, fill = "yellow"))
+        objet.append(cercle2)
         return objet
     elif len(objet) == 0:
-        xb, yb = 40, 360
-        objet.append(canvas.create_rectangle(xb, yb, xb + 40, yb + 40, fill = "yellow"))
+        objet.append(cercle2)
         return objet
+        
 
 def ciblebleu():
+    global ciblerougecliquer,ciblejaunecliquer, ciblebleucliquer, ciblevertcliquer, cercle3
+    ciblerougecliquer = 0
+    ciblejaunecliquer = 0
+    ciblebleucliquer = 1
+    ciblevertcliquer = 0
+    cercle3 = canvas.create_rectangle(440, 400, 480, 440, fill = "blue")
     if len(objet) != 0:
         canvas.delete(objet[-1])
         del objet[-1]        
-        xc, yc = 440, 400
-        objet.append(canvas.create_rectangle(xc, yc, xc + 40, yc + 40, fill = "blue"))
+        objet.append(cercle3)
         return objet
     elif len(objet) == 0:
-        xc, yc = 440, 400
-        objet.append(canvas.create_rectangle(xc, yc, xc + 40, yc + 40, fill = "blue"))
+        objet.append(cercle3)
         return objet
 
 def ciblevert():
+    global ciblerougecliquer,ciblejaunecliquer, ciblebleucliquer, ciblevertcliquer, cercle4
+    ciblerougecliquer = 0
+    ciblejaunecliquer = 0
+    ciblebleucliquer = 0
+    ciblevertcliquer = 1
+    cercle4 = canvas.create_rectangle(240, 520, 280, 560, fill = "green")
     if len(objet) != 0:
         canvas.delete(objet[-1])
         del objet[-1]        
-        xd, yd = 240, 520
-        objet.append(canvas.create_rectangle(xd, yd, xd + 40, yd + 40, fill = "green"))
+        objet.append(cercle4)
         return objet
     elif len(objet) == 0:
-        xd, yd = 240, 520
-        objet.append(canvas.create_rectangle(xd, yd, xd + 40, yd + 40, fill = "green"))
+        objet.append(cercle4)
         return objet
 """
 def ciblerouge():
@@ -263,11 +286,11 @@ def ciblevert():
         objet.append(canvas.create_rectangle(xd, yd, xd + 40, yd + 40, fill = "green"))
         return objet"""
 
-""" déplacement des robot, je ne vois pas ou est l'erreur"""
+""" déplacement des robot"""
 def deplacementRobot(event):
     global x0, y0, x1, y1, x2, y2, x3, y3, cpt
     touche = event.keysym
-    global X, Y, mouvement
+    global X, Y, mouvement, record, cercle1, cercle2, cercle3, cercle4
     X = event.x
     Y = event.y
     #assignement de la variable mouvement en fonction des coordonnées des robots
@@ -283,7 +306,39 @@ def deplacementRobot(event):
     elif x3 <= X <= x3+40 and y3 <= Y <= y3+40:
         mouvement = 4
         print("robot vert") 
-    
+    #detection des cibles de chaque couleur et gain de points
+    if x0 == 200 and y0 == 120 and ciblerougecliquer == 1:
+        canvas.destroy(robot1)
+        robotrouge()
+        canvas.destroy(cercle1)
+        record = cpt
+        canvas.itemconfigure(affiche_record, text = record)
+        cpt = 0
+        print ("c'est gagnée !!")
+    elif x1 == 40 and y1 == 360 and ciblejaunecliquer == 1:
+        canvas.destroy(robot2)
+        robotjaune()
+        canvas.destroy(cercle2)
+        record = cpt
+        canvas.itemconfigure(affiche_record, text = record)
+        cpt = 0
+        print ("c'est gagnée !!")
+    elif x2 == 200 and y2 == 120 and ciblebleucliquer == 1:
+        canvas.destroy(robot3)
+        robotvert()
+        canvas.destroy(cercle3)
+        record = cpt
+        canvas.itemconfigure(affiche_record, text = record)
+        cpt = 0
+        print ("c'est gagnée !!")
+    elif x3 == 200 and y3 == 120 and ciblevertcliquer == 1:
+        canvas.destroy(robot4)
+        robotbleu()
+        canvas.destroy(cercle4)
+        record = cpt
+        canvas.itemconfigure(affiche_record, text = record)
+        cpt = 0
+        print ("c'est gagnée !!")
     #deplacement du robot rouge 
     if mouvement == 1 and touche == "Up":
         if x0 == x1 and y0 > y1:
@@ -595,14 +650,14 @@ canvas.bind_all("<Left>", deplacementRobot)
 
 """ la partie revien au début quand on clique sur le bouton du milieu """
 def recommencer():
-    fen.destroy()
+    pass
     # principal()
 
 
 """ bouton pour l'apparition des cibles """
 
 bouton = tk.Button(fen, bg = "black",width = 8, height = 4, command= recommencer)
-bouton.grid(column = 5, row = 5, rowspan = 5)
+bouton.grid(row= 5, column = 5, rowspan= 5,)
 
 
 boutonvert = tk.Button(fen, bg = "green",width = 8, height = 2, command= ciblevert, text = "cible", borderwidth = 10, relief = "groove")
@@ -620,6 +675,8 @@ boutonbleu.grid(column = 1, row = 5, rowspan = 5)
 
 canvas.create_rectangle(645, 260, 800, 300, fill = "black", outline = "yellow", width = 5)
 canvas.create_text(685, 280, fill = "white", text = "record :")
+
+affiche_record = canvas.create_text(724.25, 260, fill = "white", text = "0")
 
 canvas.create_rectangle(645, 340, 800, 380, fill = "black" , outline = "red", width = 5)
 canvas.create_text(685, 360, fill = "white", text = "score :")
