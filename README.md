@@ -51,6 +51,8 @@ les robots ce deplace une case par une case pour le moment.
 quand on change de robot une fois on ne peut plus cliquer sur un nouveau robot
 
 les robots ne se supperpose plus entres eux ou avec le centre et ils ne peuvent plus sortir du terrain mais quand plusieur robots sont alignés 
-il arrive que certain traverse le centre ou un autre robot 
+il arrive que certain traverse le centre ou un autre robot
 
+si un robot touche une cible le nombre de coups est afficher aux mauvaise endroit 
+les robots traverssent toujours les murs 
 
