@@ -128,11 +128,11 @@ def ciblebleu():
     if len(objet) != 0:
         canvas.delete(objet[-1])
         del objet[-1]        
-        xc, yc = 240, 520
+        xc, yc = 440, 400
         objet.append(canvas.create_rectangle(xc, yc, xc + 40, yc + 40, fill = "blue"))
         return objet
     elif len(objet) == 0:
-        xc, yc = 240, 520
+        xc, yc = 440, 400
         objet.append(canvas.create_rectangle(xc, yc, xc + 40, yc + 40, fill = "blue"))
         return objet
 
@@ -140,11 +140,11 @@ def ciblevert():
     if len(objet) != 0:
         canvas.delete(objet[-1])
         del objet[-1]        
-        xd, yd = 440, 400
+        xd, yd = 240, 520
         objet.append(canvas.create_rectangle(xd, yd, xd + 40, yd + 40, fill = "green"))
         return objet
     elif len(objet) == 0:
-        xd, yd = 440, 400
+        xd, yd = 240, 520
         objet.append(canvas.create_rectangle(xd, yd, xd + 40, yd + 40, fill = "green"))
         return objet
 
