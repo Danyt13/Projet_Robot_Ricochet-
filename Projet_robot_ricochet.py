@@ -131,46 +131,6 @@ def robotvert():
     return cercle4
 
 
-# fonction qui créer des robots avec placement définie sur la grille 
-
-# def robotrouge():
-#     global x0, y0, robot1_startX, robot1_startY 
-#     x0 = 0
-#     y0 = 200
-#     cercle1 = canvas.create_oval(x0, y0, x0 + 40, y0 + 40, fill = "red")
-#     robot1_startX, robot1_startY =  x0, y0
-#     return cercle1
-
-# def robotjaune():
-#     global x1, y1, robot2_startX, robot2_startY
-#     x1 = 160
-#     y1 = 480
-#     cercle2 = canvas.create_oval(x1, y1, x1 + 40, y1 + 40, fill = "yellow")
-#     robot2_startX, robot2_startY =  x1, y1
-#     return cercle2
-
-# def robotbleu():
-#     global x2, y2, robot3_startX, robot3_startY
-#     x2 = 120
-#     y2 = 120
-#     cercle3 = canvas.create_oval(x2, y2, x2 + 40, y2 + 40, fill = "blue")
-#     robot3_startX, robot3_startY =  x2, y2
-#     return cercle3
-
-
-# def robotvert():
-#     global x3, y3, robot4_startX, robot4_startY
-#     x3 = 440
-#     y3 = 440
-#     cercle4 = canvas.create_oval(x3, y3, x3 + 40, y3 + 40, fill = "green")
-#     robot4_startX, robot4_startY =  x3, y3
-#     return cercle4
-
-robot1, robot2, robot3, robot4 = robotrouge(), robotjaune(),robotbleu(), robotvert()
-
-listeDeRobot = [robot1, robot2, robot3, robot4]
-
-
 def ciblerouge():
     """ création d'une cible (carré) de couleur rouge sur la grille """
     global ciblerougecliquer,ciblejaunecliquer, ciblebleucliquer, ciblevertcliquer, cercle1
@@ -242,56 +202,18 @@ def ciblevert():
         objet.append(cercle4)
         return objet
 
+robot1, robot2, robot3, robot4 = robotrouge(), robotjaune(),robotbleu(), robotvert()
 
-# fonction qui permet de généré une cible aléatoirement sur le grille 
-# def ciblerouge():
-#     if len(objet) != 0:
-#         canvas.delete(objet[-1])
-#         del objet[-1]        
-#         xa, ya = position[random.randint(0, 15)], position[random.randint(0, 15)]
-#         objet.append(canvas.create_rectangle(xa, ya, xa + 40, ya + 40, fill = "red"))
-#         return objet
-#     elif len(objet) == 0:
-#         xa, ya = position[random.randint(0, 15)], position[random.randint(0, 15)]
-#         objet.append(canvas.create_rectangle(xa, ya, xa + 40, ya + 40, fill = "red"))
-#         return objet
+def move_et_record(): 
+    canvas.create_rectangle(645, 260, 800, 300, fill = "black", outline = "yellow", width = 5)
+    canvas.create_text(685, 280, fill = "white", text = "record :")
 
-# def ciblejaune():
-#     if len(objet) != 0:
-#         canvas.delete(objet[-1])
-#         del objet[-1]        
-#         xb, yb = position[random.randint(0, 15)], position[random.randint(0, 15)]
-#         objet.append(canvas.create_rectangle(xb, yb, xb + 40, yb + 40, fill = "yellow"))
-#         return objet
-#     elif len(objet) == 0:
-#         xb, yb = position[random.randint(0, 15)], position[random.randint(0, 15)]
-#         objet.append(canvas.create_rectangle(xb, yb, xb + 40, yb + 40, fill = "yellow"))
-#         return objet
+    canvas.create_rectangle(645, 340, 800, 380, fill = "black" , outline = "red", width = 5)
+    canvas.create_text(685, 360, fill = "white", text = "move :")
+move_et_record()
 
-# def ciblebleu():
-#     if len(objet) != 0:
-#         canvas.delete(objet[-1])
-#         del objet[-1]        
-#         xc, yc = position[random.randint(0, 15)], position[random.randint(0, 15)]
-#         objet.append(canvas.create_rectangle(xc, yc, xc + 40, yc + 40, fill = "blue"))
-#         return objet
-#     elif len(objet) == 0:
-#         xc, yc = position[random.randint(0, 15)], position[random.randint(0, 15)]
-#         objet.append(canvas.create_rectangle(xc, yc, xc + 40, yc + 40, fill = "blue"))
-#         return objet
-
-# def ciblevert():
-#     if len(objet) != 0:
-#         canvas.delete(objet[-1])
-#         del objet[-1]        
-#         xd, yd = position[random.randint(0, 15)], position[random.randint(0, 15)]
-#         objet.append(canvas.create_rectangle(xd, yd, xd + 40, yd + 40, fill = "green"))
-#         return objet
-#     elif len(objet) == 0:
-#         xd, yd = position[random.randint(0, 15)], position[random.randint(0, 15)]
-#         objet.append(canvas.create_rectangle(xd, yd, xd + 40, yd + 40, fill = "green"))
-#         return objet
-
+affiche_move = canvas.create_text(724.25, 360, fill = "white", text = "0")
+affiche_record = canvas.create_text(724.25, 280, fill = "white", text = "0")
 
 def deplacementRobot(event):
     """ permet de faire bouger les pions en leurs cliquants dessus, puis les diriger avec les flèches directionnelles du clavier """
@@ -645,26 +567,13 @@ def deplacementRobot(event):
             x3 = 0
         cpt += 1
         print ("Nombres de coups:",cpt)
-    canvas.itemconfigure(affiche_score, text = cpt )
+    canvas.itemconfigure(affiche_move, text = cpt )
 
 
 def recommencer():
     """ permet de relancer la grille quand on appuye sur le carré noir du milieu de la grille """ 
     pass
     # principal()
-
-
-#  widgets pour score et nombres de coups
-
-canvas.create_rectangle(645, 260, 800, 300, fill = "black", outline = "yellow", width = 5)
-canvas.create_text(685, 280, fill = "white", text = "record :")
-
-affiche_record = canvas.create_text(724.25, 280, fill = "white", text = "0")
-
-canvas.create_rectangle(645, 340, 800, 380, fill = "black" , outline = "red", width = 5)
-canvas.create_text(685, 360, fill = "white", text = "score :")
-
-affiche_score = canvas.create_text(724.25, 360, fill = "white", text = "0")
 
 
 #  Boutons 
@@ -689,10 +598,11 @@ canvas.bind_all("<Right>", deplacementRobot)
 canvas.bind_all("<Left>", deplacementRobot)
 
 
-#  fonction
+#  appel de fonction
 
 grille()
 genere_murs()
+
 
 #  configuration du curseur et de la fenètre
 
@@ -703,3 +613,102 @@ fen.resizable(width=False, height=False)
 #  apparition de la fenètre Tkinter
 
 fen.mainloop()
+
+
+
+
+# On a mis ces fonctions en commentaire, car on a décider d'au lieu de définir l'emplacement des pions (robots) à chaque fois au même endroit,
+# On va les générer aléatoirement sur la grille, pour varier les parties.
+
+# fonction qui créer des robots avec placement définie sur la grille 
+
+# def robotrouge():
+#     global x0, y0, robot1_startX, robot1_startY 
+#     x0 = 0
+#     y0 = 200
+#     cercle1 = canvas.create_oval(x0, y0, x0 + 40, y0 + 40, fill = "red")
+#     robot1_startX, robot1_startY =  x0, y0
+#     return cercle1
+
+
+# def robotjaune():
+#     global x1, y1, robot2_startX, robot2_startY
+#     x1 = 160
+#     y1 = 480
+#     cercle2 = canvas.create_oval(x1, y1, x1 + 40, y1 + 40, fill = "yellow")
+#     robot2_startX, robot2_startY =  x1, y1
+#     return cercle2
+
+
+# def robotbleu():
+#     global x2, y2, robot3_startX, robot3_startY
+#     x2 = 120
+#     y2 = 120
+#     cercle3 = canvas.create_oval(x2, y2, x2 + 40, y2 + 40, fill = "blue")
+#     robot3_startX, robot3_startY =  x2, y2
+#     return cercle3
+
+
+# def robotvert():
+#     global x3, y3, robot4_startX, robot4_startY
+#     x3 = 440
+#     y3 = 440
+#     cercle4 = canvas.create_oval(x3, y3, x3 + 40, y3 + 40, fill = "green")
+#     robot4_startX, robot4_startY =  x3, y3
+#     return cercle4
+
+
+# Au début on était parti sur des cibles aléatoires mais si on fait ça, il y a un risque que le jeu soit impossible a finir. 
+# et on a donc décidé de garder l'emplacement des cibles fixes, identiques à l'exemple qu'on à pris sur le site http://www.robotreboot.com/challenge,
+# Ce site est donner dans le sujet comme inspiration pour créer l'interface graphique pour le projet robot ricochet. 
+# On a donc décidé de garder une trace des définitions pour les cibles aléatoires.
+
+# fonction qui permet de généré une cible aléatoirement sur le grille 
+
+# def ciblerouge():
+#     if len(objet) != 0:
+#         canvas.delete(objet[-1])
+#         del objet[-1]        
+#         xa, ya = position[random.randint(0, 15)], position[random.randint(0, 15)]
+#         objet.append(canvas.create_rectangle(xa, ya, xa + 40, ya + 40, fill = "red"))
+#         return objet
+#     elif len(objet) == 0:
+#         xa, ya = position[random.randint(0, 15)], position[random.randint(0, 15)]
+#         objet.append(canvas.create_rectangle(xa, ya, xa + 40, ya + 40, fill = "red"))
+#         return objet
+
+# def ciblejaune():
+#     if len(objet) != 0:
+#         canvas.delete(objet[-1])
+#         del objet[-1]        
+#         xb, yb = position[random.randint(0, 15)], position[random.randint(0, 15)]
+#         objet.append(canvas.create_rectangle(xb, yb, xb + 40, yb + 40, fill = "yellow"))
+#         return objet
+#     elif len(objet) == 0:
+#         xb, yb = position[random.randint(0, 15)], position[random.randint(0, 15)]
+#         objet.append(canvas.create_rectangle(xb, yb, xb + 40, yb + 40, fill = "yellow"))
+#         return objet
+
+# def ciblebleu():
+#     if len(objet) != 0:
+#         canvas.delete(objet[-1])
+#         del objet[-1]        
+#         xc, yc = position[random.randint(0, 15)], position[random.randint(0, 15)]
+#         objet.append(canvas.create_rectangle(xc, yc, xc + 40, yc + 40, fill = "blue"))
+#         return objet
+#     elif len(objet) == 0:
+#         xc, yc = position[random.randint(0, 15)], position[random.randint(0, 15)]
+#         objet.append(canvas.create_rectangle(xc, yc, xc + 40, yc + 40, fill = "blue"))
+#         return objet
+
+# def ciblevert():
+#     if len(objet) != 0:
+#         canvas.delete(objet[-1])
+#         del objet[-1]        
+#         xd, yd = position[random.randint(0, 15)], position[random.randint(0, 15)]
+#         objet.append(canvas.create_rectangle(xd, yd, xd + 40, yd + 40, fill = "green"))
+#         return objet
+#     elif len(objet) == 0:
+#         xd, yd = position[random.randint(0, 15)], position[random.randint(0, 15)]
+#         objet.append(canvas.create_rectangle(xd, yd, xd + 40, yd + 40, fill = "green"))
+#         return objet
