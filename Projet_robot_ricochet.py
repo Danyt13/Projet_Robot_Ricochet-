@@ -11,14 +11,7 @@ import tkinter as tk
 import random
 from tkinter.constants import CENTER, TRUE
 
-#  création fenêtre 
-
-fen = tk.Tk()
-fen.title("Robot Ricochet")
-canwidth, canheight = 800, 640
-canvas = tk.Canvas(fen, width = canwidth, height = canheight, bg = "white")
-
-# variables
+#  variables
 
 position = [0, 40, 80, 120, 160, 200, 240, 280, 320, 360, 400, 440, 480, 520, 560, 600]
 position1 = [0, 40, 80, 120, 160, 200, 240, 400, 440, 480, 520, 560, 600]
@@ -34,9 +27,9 @@ ciblerougecliquer,ciblejaunecliquer, ciblebleucliquer, ciblevertcliquer = 0, 0, 
 def grille():
     """ création de la gille de jeu """
     for i in range(16):
-     canvas.create_line(0, 40 * i, canheight, 40 * i, fill = "grey")
+        canvas.create_line(0, 40 * i, canheight, 40 * i, fill = "grey")
     for i in range(16):
-     canvas.create_line(40 * i, 0, 40 * i, canwidth, fill = "grey")
+        canvas.create_line(40 * i, 0, 40 * i, canwidth, fill = "grey")
     
     canvas.create_rectangle(280 ,280, 360, 360, fill = "black")
     canvas.create_line(640, 0, 640, 640, fill = "black", width= 4)
@@ -202,7 +195,6 @@ def ciblevert():
         objet.append(cercle4)
         return objet
 
-robot1, robot2, robot3, robot4 = robotrouge(), robotjaune(),robotbleu(), robotvert()
 
 def move_et_record(): 
     canvas.create_rectangle(645, 260, 800, 300, fill = "black", outline = "yellow", width = 5)
@@ -210,10 +202,7 @@ def move_et_record():
 
     canvas.create_rectangle(645, 340, 800, 380, fill = "black" , outline = "red", width = 5)
     canvas.create_text(685, 360, fill = "white", text = "move :")
-move_et_record()
 
-affiche_move = canvas.create_text(724.25, 360, fill = "white", text = "0")
-affiche_record = canvas.create_text(724.25, 280, fill = "white", text = "0")
 
 def deplacementRobot(event):
     """ permet de faire bouger les pions en leurs cliquants dessus, puis les diriger avec les flèches directionnelles du clavier """
@@ -222,6 +211,9 @@ def deplacementRobot(event):
     global X, Y, mouvement, record, cercle1, cercle2, cercle3, cercle4
     X = event.x
     Y = event.y
+
+    if 280 < event.x < 360 and 280 < event.y < 360:
+        recommencer()
 
     """ assignement de la variable mouvement en fonction des coordonnées des robots """
     if x0 <= X <= x0+40 and y0 <= Y <= y0+40:
@@ -571,9 +563,72 @@ def deplacementRobot(event):
 
 
 def recommencer():
-    """ permet de relancer la grille quand on appuye sur le carré noir du milieu de la grille """ 
-    pass
+    """ permet de relancer la grille quand on appuye sur le carré noir du milieu de la grille """
+    global fen, canvas
+    global robot1, robot2, robot3, robot4
+    global cpt
+
+    fen.destroy()
+    cpt = 0
+    fen = tk.Tk()
+    fen.title("Robot Ricochet")
+    canvas = tk.Canvas(fen, width = canwidth, height = canheight, bg = "white")
+    # variables
+
+
+
+    robot1, robot2, robot3, robot4 = robotrouge(), robotjaune(), robotbleu(), robotvert()
+    #  Boutons 
+    move_et_record()
+
+    affiche_move = canvas.create_text(724.25, 360, fill = "white", text = "0")
+    affiche_record = canvas.create_text(724.25, 280, fill = "white", text = "0")
+
+    boutonvert = tk.Button(fen, bg = "green",width = 8, height = 2, command= ciblevert, text = "cible", borderwidth = 10, relief = "groove")
+    boutonvert.grid(column = 1, row = 2, rowspan = 5)
+    boutonrouge = tk.Button(fen, bg = "red",width = 8, height = 2, command= ciblerouge, text = "cible", borderwidth = 10, relief = "groove")
+    boutonrouge.grid(column = 1, row = 3, rowspan = 5)
+    boutonjaune = tk.Button(fen, bg = "yellow",width =8, height = 2, command= ciblejaune, text = "cible", borderwidth = 10, relief = "groove")
+    boutonjaune.grid(column = 1, row = 4, rowspan = 5)
+    boutonbleu = tk.Button(fen, bg = "blue",width = 8, height = 2, command= ciblebleu, text = "cible", borderwidth = 10, relief = "groove")
+    boutonbleu.grid(column = 1, row = 5, rowspan = 5)
+
+
+    #  widgets 
+
+    canvas.grid(column = 5, row = 5, rowspan = 5,)
+    canvas.bind_all("<Button-1>", deplacementRobot)
+    canvas.bind_all("<Up>", deplacementRobot)
+    canvas.bind_all("<Down>", deplacementRobot)
+    canvas.bind_all("<Right>", deplacementRobot)
+    canvas.bind_all("<Left>", deplacementRobot)
+
+
+    #  appel de fonction
+
+    grille()
+    genere_murs()
+
+
+    #  configuration du curseur et de la fenètre
+
+    canvas.configure(cursor ='hand2')
+    fen.resizable(width=False, height=False)
+
+
+    #  apparition de la fenètre Tkinter
+
+    fen.mainloop()
+
     # principal()
+
+
+#  fenêtre principal
+
+fen = tk.Tk()
+fen.title("Robot Ricochet")
+canwidth, canheight = 800, 640
+canvas = tk.Canvas(fen, width = canwidth, height = canheight, bg = "white")
 
 
 #  Boutons 
@@ -602,7 +657,14 @@ canvas.bind_all("<Left>", deplacementRobot)
 
 grille()
 genere_murs()
+move_et_record()
 
+
+#  variables
+
+robot1, robot2, robot3, robot4 = robotrouge(), robotjaune(), robotbleu(), robotvert()
+affiche_move = canvas.create_text(724.25, 360, fill = "white", text = "0")
+affiche_record = canvas.create_text(724.25, 280, fill = "white", text = "0")
 
 #  configuration du curseur et de la fenètre
 
